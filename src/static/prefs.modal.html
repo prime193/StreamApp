@@ -1,0 +1,23 @@
+<div class="modal-header">
+    <h3 class="modal-title">Preferences</h3>
+</div>
+<div class="modal-body" >
+            
+<div style="height: 305px">
+    <div uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">
+      <div uib-slide ng-repeat="slide in slides track by slide.id" index="slide.id">
+        <img ng-src="{{slide.image}}" style="margin:auto;max-width:100%;max-height:100%">
+        <div class="carousel-caption">
+          <h4>Image {{slide.id + 1}}</h4>
+        </div>
+      </div>
+    </div>
+</div>
+
+</div>
+<div class="modal-footer">
+    <label class="pull-left"><em>Use picture above as your background</em></label>
+    
+    <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+    <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+</div>

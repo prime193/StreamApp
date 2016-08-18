@@ -1,0 +1,89 @@
+    /*CSS3 assumed, fallbacks planned */
+    
+    :root {
+        --container-style: solid;
+        --container-color: transparent;
+        --background-image: url('https://commons.wikimedia.org/w/index.php?title=Special:Redirect/file/First_flight3.jpg&width=1024')
+        
+        /*--container-style: dotted;
+        --container-color: white;
+        */
+    }
+    
+    .background {
+        background-image: var(--background-image);
+        background-size: cover;
+    }
+    
+    .q-grid {
+        max-width: 100%;
+        margin: 15px;
+        border: 5px var(--container-style) var(--container-color);
+        font-size: 0px;
+        /* inline-block whitespace workaround */
+    }
+    
+    .q-grid .q-inner {
+        display: inline-block;
+        border: 0px;
+        margin: 0px;
+        padding: 0px;
+        max-width: 320px;
+        /*currently max width of image resource*/
+        font-size: 14px;
+        /* inline-block whitespace workaround */
+    }
+    
+    .q-grid .q-inner .q-cell {
+        position: relative;
+        overflow: hidden;
+        border: 1px var(--container-style) var(--container-color);
+    }
+    
+    .q-grid .q-inner img {
+        position: relative;
+        max-width: 100%;
+        max-height: 100%;
+        opacity: 0.90;
+        filter: alpha(opacity=90);
+        /* For IE8 and earlier */
+    }
+    
+    .q-grid .q-inner img:hover {
+        right: -1px;
+        bottom: -1px;
+        opacity: 1;
+        filter: alpha(opacity=100);
+        /* For IE8 and earlier */
+    }
+    
+    .q-grid .q-inner button {
+        z-index: 99;
+        position: absolute;
+        right: 0px;
+        bottom: 0px;
+    }
+    
+    .popover-content {
+        width: 320px;
+    }
+    
+    .q-grid .q-inner button {
+        opacity: 0.7;
+    }
+    
+    .q-grid .q-inner label {
+        z-index: 1;
+        color: rgba(255, 255, 255, 1);
+        font-size: 14px;
+        font-family: "Arial", sans-serif;
+        font-style: normal;
+        position: absolute;
+        left: 5px;
+        bottom: 0px;
+        padding: 0px;
+        border: 0px;
+        margin: 0px;
+    }
+    
+    

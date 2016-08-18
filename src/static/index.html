@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>Tuned In!</title>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="styles.css">
+
+</head>
+
+<body ng-style="{'background-image': 'url(' + backgroundUrl + ')','background-size':cover}" ng-app="app" ng-controller="MainController as main" style="position:relative;">
+
+  <div class="container">
+    <nav class="navbar navbar-default" ng-controller="ModalDemoCtrl">
+      <div class="container-fluid">
+        <div>
+          <div class="nav navbar-header">
+            <h3><a href="#">Tuned In!</a></h3>
+            <em><h6 data-localize>Modern Media Viewer</h6></em>
+          </div>
+
+
+          <!--TODO: localize all data-localize'd tags with preferred language -->
+
+          <div class="nav navbar-right">
+            <br/>
+            <form id="frmLogin" class="form-group form-inline" ng-show="!main.formData.auth">
+              <span style="margin:15px;">
+             <label data-localize class="text-info large" for="currentUsername">Sign In:</label>&nbsp;&nbsp;<a href="#" class="text-danger small"><em data-localize>Or new this site?</em></a>
+             <input style="max-width:40%;" ng-model="main.formData.username" class="form-control" type="text" id="username" name="username"></input>
+             <input style="max-width:40%;" ng-model="main.formData.password" class="form-control" type="password" id="password" name="password"></input>
+             <button style="max-width:20%;" data-localize ng-click="main.checkUser();" class="form-control btn btn-submit welcome"><span class="glyphicon glyphicon-user"/>&nbsp;Login</button>
+             <br/>
+             <label class="text-danger small"">{{main.error}}</label>
+             
+           </span>
+            </form>
+
+            <div id="navMenu" class="btn-group" ng-show="main.formData.auth" uib-dropdown keyboard-nav>
+              <button class="btn btn-success" type="button" uib-dropdown-toggle><span class="glyphicon glyphicon-user" /><span data-localize>&nbsp;Welcome&nbsp;</span>{{main.formData.username}}<span class="caret" />
+              </button>
+              <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="navMenu-with-keybd">
+                <li role="menuitem"><a href="#" ng-click="event.preventDefault();open('sm');">Saved preferences</a></li>
+                <li role="menuitem"><a href="about.html">About this application</a></li>
+                <li class="divider"></li>
+                <li role="menuitem"><a href="/logout">Logout</a></li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+
+        <div>
+
+        </div>
+      </div>
+      <div class="container-fluid">
+        <div class="nav navbar-left">
+          <label data-ng-repeat="service in main.serviceOptions" class="radio-inline">
+            <input data-ng-model="main.serviceSelected" data-ng-change="main.serviceChanged(service.id)" type="radio" name="optradio" value="{{service.id}}"> {{service.name}}&nbsp;&nbsp;
+          </label>
+
+        </div>
+
+        <div class="nav navbar-right">
+          <form id="searchForm" class="form-group form-inline" ng-submit="main.reload()">
+            <div id="searchPanel" ng-show="main.serviceSelected==1">
+              <input type="text" id="searchText" class="col-md-8" ng-model="main.formData.searchText" />
+              <button type="submit" class="btn btn-primary col-md-2"><span class="glyphicon glyphicon-search"></span></button>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </nav>
+
+    <form id="form1" name="form1" class="form-horizontal" ng-submit="main.reload()">
+
+      <div id="loadingMsg" ng-show="main.showHide.loading" class="form-group col-md-12">
+        <h4>Loading page, please wait..</h4>
+      </div>
+
+      <div id="errorMsg" ng-show="main.showHide.error" class="form-group col-md-12">
+        <h4 class="text-danger">Our apologies.  We could not access streaming data due to an internet issue.  Click the reload button to try again.</h4>
+        <button class="btn btn-default" ng-click="main.reload();"><span class="glyphicon glyphicon-download"></span> Reload Page</button>
+      </div>
+
+      <div id="content" ng-show="main.showHide.content">
+        <div class="form-group">
+          <div class="col-md-10" style="width:50%;">
+            <select class="form-control btn btn-primary dropdown-toggle" ng-model="main.itemSelected" ng-options="stream.url as stream.display_name + ' - ' + stream.game for stream in main.streamInfo.streams | limitTo:10" ng-change="main.selectChanged(main.itemSelected)">
+              <option value="">Select stream.</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="col-md-12">
+            <div class="q-grid">
+              <div ng-repeat="channel in main.streamInfo.streams | limitTo:10" class="q-inner">
+                <div id="q-cell" class="q-cell">
+                  <stream stream="channel"></stream>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <!--External scripts from CDN, would copy to lib folder for deployment-->
+
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-cookies.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.js"></script>
+    <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.0.0.js"></script>
+    
+    <!--Copy to static folder -->
+    <script src="intune-angular1.58.js"></script>
+    <script src="main-ctrl-angular1.58.js"></script>
+    <script src="twitch-fact.js"></script>
+  </div>
+
+</body>
+
+</html>
